@@ -1,10 +1,18 @@
 import { Hono } from "jsr:@hono/hono";
+import { createClient } from "jsr:@supabase/supabase-js";
+import "jsr:@std/dotenv/load";
+
+// Инициализируйте Supabase клиент
+const supabase = createClient(
+  Deno.env.get("supabaseUrl"),
+  Deno.env.get("API_KEY"),
+);
 
 const app = new Hono();
 
 // Main page
-app.get('/', (c) => {
-    return c.html(`
+app.get("/", (c) => {
+  return c.html(`
       <!DOCTYPE html>
       <html lang="en">
       <head>
@@ -21,19 +29,22 @@ app.get('/', (c) => {
       </body>
       </html>
     `);
-  });
+});
 
-  // Маршрут для получения списка всех статей
-  app.get('/articles', async (c) => {
-    // Здесь вы можете подключиться к вашей базе данных и получить статьи
-    const articles = [
-      { title: 'Статья 1' },
-      { title: 'Статья 2' },
-      { title: 'Статья 3' },
-    ];
+// Get all articles from Supabase
+app.get("/articles", async (c) => {
+  const { data: articles, error } = await supabase
+    .from("articles")
+    .select("*");
 
-    const articlesHtml = await articles.map(article => `<li>${article.title}</li>`).join('');
-    return c.html(`<ul>${articlesHtml}</ul>`);
-  });
+  if (error) {
+    return c.json({ error: error.message }, 500);
+  }
 
+  const articlesHtml = articles.map((article) => `<li>${article.title}</li>`)
+    .join("");
+  return c.html(`<ul>${articlesHtml}</ul>`);
+});
+
+// Server run
 Deno.serve(app.fetch);
