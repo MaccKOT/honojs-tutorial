@@ -6,7 +6,7 @@ Just simple server with Supabase integration
 2. Run migrations file: `deno migrations.js`
 3. Run server: `deno run dev`
 
-Database schema:
+Table schema:
 
 ```sql
 create table public.articles (
@@ -18,3 +18,8 @@ create table public.articles (
   constraint articles_id_key unique (id)
 ) TABLESPACE pg_default;
 ```
+
+Things todo:
+
+* add more error checks
+* 'show artile' link with article page
