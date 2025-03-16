@@ -11,4 +11,4 @@ app.post('/data', async (c) => {
   return c.json({ received: true, data });
 });
 
-app.fire();
+Deno.serve(app.fetch);
