@@ -2,7 +2,7 @@ import { Hono } from "jsr:@hono/hono";
 
 const app = new Hono();
 
-// Маршрут для главной страницы
+// Main page
 app.get('/', (c) => {
     return c.html(`
       <!DOCTYPE html>
@@ -10,12 +10,13 @@ app.get('/', (c) => {
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Articles</title>
+        <title>Hono.js with Supabase</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/holiday.css@0.11.2" />
         <script src="https://unpkg.com/htmx.org@2.0.4"></script>
       </head>
-      <body>
+      <body style="margin: 20px">
         <h1>Articles</h1>
-        <button hx-get="/articles" hx-target="#articles-list" hx-swap="innerHTML">Загрузить все статьи</button>
+        <button hx-get="/articles" hx-target="#articles-list" hx-swap="innerHTML">Load all articles</button>
         <div id="articles-list"></div>
       </body>
       </html>
