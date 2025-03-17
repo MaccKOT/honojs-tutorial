@@ -22,4 +22,4 @@ create table public.articles (
 Things todo:
 
 * add more error checks
-* 'show artile' link with article page
+* 'show artile' link with agirticle page
