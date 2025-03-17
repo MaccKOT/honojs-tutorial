@@ -2,11 +2,11 @@
 
 Just simple server with Supabase integration
 
-1. Create Supabase database, fill `.env` file.
-2. Run migrations file: `deno migrations.js`
+1. Create Supabase database, create RMS policies for write access, fill `.env` file.
+2. Run migrations file to create table: `deno migrations.js`
 3. Run server: `deno run dev`
 
-Table schema:
+Table:
 
 ```sql
 create table public.articles (
@@ -22,4 +22,4 @@ create table public.articles (
 Things todo:
 
 * add more error checks
-* 'show artile' link with article page
+* 'show article' link with article page
